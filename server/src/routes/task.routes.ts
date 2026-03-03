@@ -13,6 +13,6 @@ const router = Router()
 router.post("/", authenticateUser, createTask)
 router.get("/", authenticateUser, getTasks)
 
-router.patch("/:id", authenticateUser, updateTask)
+router.put("/:id", authenticateUser, updateTask)
 router.delete("/:id", authenticateUser, deleteTask)
 export default router
