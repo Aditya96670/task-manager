@@ -18,7 +18,7 @@ model User {
   password  String
   createdAt DateTime @default(now())
 
-  tasks Task[] // 👈 THIS LINE IMPORTANT
+  tasks Task[] // 
 }
 
 model Task {

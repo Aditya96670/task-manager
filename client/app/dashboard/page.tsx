@@ -31,7 +31,7 @@ export default function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // 🔒 Protect Route
+  
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
