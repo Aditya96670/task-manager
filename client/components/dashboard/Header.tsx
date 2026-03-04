@@ -8,7 +8,7 @@ export default function Header({ onLogout }: HeaderProps) {
   return (
     <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 gap-4">
       <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
-        Task Dashboard 🚀
+        Task Dashboard 
       </h1>
 
       <button
