@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/services/auth.service";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,17 +13,20 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      alert("Please fill all fields");
+      toast.error("Please fill all fields");
       return;
     }
 
     try {
       setLoading(true);
+
       await loginUser({ email, password });
+
+      toast.success("Login successful");
 
       router.push("/dashboard");
     } catch (error: any) {
-      alert(error.response?.data?.message || "Login failed");
+      toast.error(error.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
@@ -32,7 +36,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-100 to-blue-300">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-          Welcome Back 
+          Welcome Back
         </h2>
 
         <div className="space-y-4">

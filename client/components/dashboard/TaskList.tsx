@@ -20,7 +20,7 @@ export default function TaskList({
   if (tasks.length === 0) {
     return (
       <div className="text-center text-gray-700 py-12">
-        <p className="text-lg">No tasks found 📭</p>
+        <p className="text-lg">No tasks found </p>
       </div>
     );
   }

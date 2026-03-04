@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/axios";
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -12,28 +13,30 @@ export default function RegisterPage() {
 
   const handleRegister = async () => {
     if (!email || !password) {
-      alert("Please fill all fields");
+      toast.error("Please fill all fields");
       return;
     }
 
     try {
       setLoading(true);
+
       await api.post("/api/auth/register", { email, password });
 
-      alert("Account created successfully!");
+      toast.success("Account created successfully!");
+
       router.push("/login");
     } catch (error: any) {
-      alert(error.response?.data?.message || "Registration failed");
+      toast.error(error.response?.data?.message || "Registration failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-100 to-purple-300">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 to-purple-300">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
         <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-          Create Account 
+          Create Account
         </h2>
 
         <div className="space-y-4">
