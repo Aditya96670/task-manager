@@ -63,6 +63,16 @@ export default function RegisterPage() {
           >
             {loading ? "Creating..." : "Register"}
           </button>
+
+          <p className="text-center text-gray-600 mt-4">
+            Already have an account?{" "}
+            <button
+              onClick={() => router.push("/login")}
+              className="text-purple-600 font-semibold hover:underline"
+            >
+              Login here
+            </button>
+          </p>
         </div>
       </div>
     </div>

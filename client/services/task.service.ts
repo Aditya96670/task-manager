@@ -21,6 +21,8 @@ export const getTasks = async (
 export const createTask = async (data: {
   title: string;
   description?: string;
+  priority?: string;
+  dueDate?: string;
 }) => {
   const res = await api.post("/api/tasks", data);
   return res.data;

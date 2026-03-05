@@ -7,16 +7,18 @@ interface AuthRequest extends Request {
 
 export const createTask = async (req: AuthRequest, res: Response) => {
   try {
-    const { title, description } = req.body
+    const { title, description, priority, dueDate } = req.body
 
     if (!title) {
       return res.status(400).json({ message: "Title is required" })
     }
 
-    const task = await prisma.task.create({
+    const task = await (prisma.task as any).create({
       data: {
         title,
         description,
+        priority: priority || "MEDIUM",
+        dueDate: dueDate ? new Date(dueDate) : null,
         userId: req.userId!,
       },
     })
@@ -83,7 +85,7 @@ export const getTasks = async (req: AuthRequest, res: Response) => {
 export const updateTask = async (req: AuthRequest, res: Response) => {
   try {
     const taskId = Number(req.params.id)
-    const { title, description, completed } = req.body
+    const { title, description, completed, priority, dueDate } = req.body
 
     // Check if task exists & belongs to user
     const existingTask = await prisma.task.findFirst({
@@ -97,12 +99,14 @@ export const updateTask = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: "Task not found" })
     }
 
-    const updatedTask = await prisma.task.update({
+    const updatedTask = await (prisma.task as any).update({
       where: { id: taskId },
       data: {
-        title: title ?? existingTask.title,
-        description: description ?? existingTask.description,
-        completed: completed ?? existingTask.completed,
+        title: title ?? (existingTask as any).title,
+        description: description ?? (existingTask as any).description,
+        completed: completed ?? (existingTask as any).completed,
+        priority: priority ?? (existingTask as any).priority,
+        dueDate: dueDate ? new Date(dueDate) : (existingTask as any).dueDate,
       },
     })
 
